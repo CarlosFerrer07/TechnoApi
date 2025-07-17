@@ -22,17 +22,11 @@ namespace TechnoApi.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            try
-            {
+
                 var response = _authService.Login(request);
 
                 return Ok(response);
-            }
-            catch (UnauthorizedAccessException ex) { 
 
-                return Unauthorized(new { mensaje = ex.Message});
-
-            }
         }
     }
 

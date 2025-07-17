@@ -8,6 +8,7 @@ using TechnoApiInfrastructure.Repositories;
 using TechnoApiInfrastructure.Security;
 using TechnoApiApplication.Services;
 using Microsoft.EntityFrameworkCore;
+using TechnoApi.Middlewares;
 
 namespace TechnoApi
 {
@@ -26,6 +27,7 @@ namespace TechnoApi
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IAuthService, AuthService> ();
+
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -50,6 +52,11 @@ namespace TechnoApi
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+
+            // 3. Registramos los middlewares
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
