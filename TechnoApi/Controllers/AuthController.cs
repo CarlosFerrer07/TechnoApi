@@ -1,9 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TechnoApiApplication.DTOs;
 using TechnoApiApplication.Interfaces;
-using TechnoApiDomain.Entities;
 
 namespace TechnoApi.Controllers
 {
@@ -13,38 +10,29 @@ namespace TechnoApi.Controllers
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
+        private readonly IAuthService _authService;
 
-        public AuthController(IUsuarioRepository usuarioRepository, IJwtTokenGenerator jwtTokenGenerator)
+        public AuthController(IUsuarioRepository usuarioRepository, IJwtTokenGenerator jwtTokenGenerator, IAuthService authService)
         {
             _usuarioRepository = usuarioRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
+            _authService = authService;
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
-            // 1. Validar el usuario con el repositorio
-            var usuario = _usuarioRepository.ObtenerUsuario(request.Email, request.Password);
-
-            if (usuario == null)
+            try
             {
-                // Si no existe, devolvemos 401 Unauthorized
-                return Unauthorized(new { mensaje = "Credenciales incorrectas" });
+                var response = _authService.Login(request);
+
+                return Ok(response);
             }
+            catch (UnauthorizedAccessException ex) { 
 
-            // 2. Generar el token JWT
-            var token = _jwtTokenGenerator.GenerarToken(usuario.Nombre, request.Email);
+                return Unauthorized(new { mensaje = ex.Message});
 
-            // 3. Crear la respuesta con el token y datos del usuario
-            var response = new LoginResponse
-            {
-                Token = token,
-                Nombre = usuario.Nombre,
-                Email = usuario.Email
-            };
-
-            // 4. Devolver OK con la respuesta
-            return Ok(response);
+            }
         }
     }
 

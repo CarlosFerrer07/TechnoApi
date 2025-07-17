@@ -6,6 +6,7 @@ using TechnoApiApplication.Interfaces;
 using TechnoApiInfrastructure.Data;
 using TechnoApiInfrastructure.Repositories;
 using TechnoApiInfrastructure.Security;
+using TechnoApiApplication.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace TechnoApi
@@ -24,6 +25,7 @@ namespace TechnoApi
             // 2. Registramos los servicios
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            builder.Services.AddScoped<IAuthService, AuthService> ();
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
