@@ -9,6 +9,7 @@ namespace TechnoApiApplication.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Usuario? ObtenerUsuario(string email, string contraseña);
+        Usuario? ObtenerUsuario(string email);
+        bool RegistrarUsuario(Usuario usuario);
     }
 }

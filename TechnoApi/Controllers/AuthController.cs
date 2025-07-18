@@ -4,7 +4,7 @@ using TechnoApiApplication.Interfaces;
 
 namespace TechnoApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -19,7 +19,7 @@ namespace TechnoApi.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
 
@@ -27,6 +27,14 @@ namespace TechnoApi.Controllers
 
                 return Ok(response);
 
+        }
+
+        [HttpPost("Register")]
+        public IActionResult Register([FromBody] RegisterRequest request) 
+        {
+            var response = _authService.Register(request);
+
+            return Ok(response);
         }
     }
 

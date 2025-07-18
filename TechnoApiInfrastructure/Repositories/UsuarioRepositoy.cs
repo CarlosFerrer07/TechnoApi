@@ -14,10 +14,14 @@ namespace TechnoApiInfrastructure.Repositories
             _context = context;
         }
 
-        public Usuario ObtenerUsuario(string email, string password)
+        public Usuario ObtenerUsuario(string email)
         {
-            return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.Contraseña == password);
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email);
         }
 
+        public bool RegistrarUsuario(Usuario usuario) { 
+            _context.Usuarios.Add(usuario);
+            return _context.SaveChanges() > 0;
+        }
     }
 }
