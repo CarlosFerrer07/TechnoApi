@@ -9,6 +9,7 @@ using TechnoApiInfrastructure.Security;
 using TechnoApiApplication.Services;
 using Microsoft.EntityFrameworkCore;
 using TechnoApi.Middlewares;
+using Microsoft.AspNetCore.Cors;
 
 namespace TechnoApi
 {
@@ -18,6 +19,16 @@ namespace TechnoApi
         {
             var builder = WebApplication.CreateBuilder(args);
             var config = builder.Configuration;
+
+            // habilitamos CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
+
 
             // 1. Agregar DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -63,6 +74,8 @@ namespace TechnoApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
