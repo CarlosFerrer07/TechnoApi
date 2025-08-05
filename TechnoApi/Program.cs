@@ -10,6 +10,9 @@ using TechnoApiApplication.Services;
 using Microsoft.EntityFrameworkCore;
 using TechnoApi.Middlewares;
 using Microsoft.AspNetCore.Cors;
+using TechnoApiApplication.Interfaces.categoria;
+using TechnoApiApplication.Services.Categorias;
+using TechnoApiInfrastructure.Repositories.Categorias;
 
 namespace TechnoApi
 {
@@ -38,6 +41,8 @@ namespace TechnoApi
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<IAuthService, AuthService> ();
+            builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+            builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 
             // JWT Authentication

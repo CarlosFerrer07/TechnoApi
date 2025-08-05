@@ -14,6 +14,8 @@ namespace TechnoApiInfrastructure.Data
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<Categoria> Categorias { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuario>(entity =>
@@ -25,6 +27,14 @@ namespace TechnoApiInfrastructure.Data
                 entity.Property(e => e.Dni).IsRequired();
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Contraseña).IsRequired();
+            });
+
+            modelBuilder.Entity<Categoria>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Codigo);
+                entity.Property(e => e.Nombre);
+                entity.Property(e => e.Descripcion);
             });
         }
     }
