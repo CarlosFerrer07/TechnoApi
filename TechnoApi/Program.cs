@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Cors;
 using TechnoApiApplication.Interfaces.categoria;
 using TechnoApiApplication.Services.Categorias;
 using TechnoApiInfrastructure.Repositories.Categorias;
+using TechnoApiApplication.Interfaces.producto;
+using TechnoApiInfrastructure.Repositories.Productos;
+using TechnoApiApplication.Services.Productos;
 
 namespace TechnoApi
 {
@@ -43,7 +46,8 @@ namespace TechnoApi
             builder.Services.AddScoped<IAuthService, AuthService> ();
             builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             builder.Services.AddScoped<ICategoriaService, CategoriaService>();
-
+            builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+            builder.Services.AddScoped<IProductoService, ProductoService>();
 
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

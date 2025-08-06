@@ -16,11 +16,15 @@ namespace TechnoApiInfrastructure.Data
 
         public DbSet<Categoria> Categorias { get; set; }
 
+        public DbSet<Producto> Productos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Usuario
             modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.IdUsuario);
+
                 entity.Property(e => e.Nombre).IsRequired();
                 entity.Property(e => e.Apellido1).IsRequired();
                 entity.Property(e => e.Apellido2).IsRequired(false);
@@ -29,13 +33,31 @@ namespace TechnoApiInfrastructure.Data
                 entity.Property(e => e.Contraseña).IsRequired();
             });
 
+            //Categoria
             modelBuilder.Entity<Categoria>(entity =>
             {
                 entity.HasKey(e => e.Id);
+
                 entity.Property(e => e.Codigo);
                 entity.Property(e => e.Nombre);
                 entity.Property(e => e.Descripcion);
             });
+
+            //Producto
+            modelBuilder.Entity<Producto>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Nombre);
+                entity.Property(e => e.Precio);
+                entity.Property(e => e.Stock);
+                entity.Property(e => e.ImagenUrl);
+                entity.Property(e => e.CategoriaId);
+
+                entity.HasOne(e => e.Categoria).WithMany().HasForeignKey(e=>e.CategoriaId).OnDelete(DeleteBehavior.Cascade);
+
+            });
+
         }
     }
 }
