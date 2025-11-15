@@ -11,5 +11,7 @@ namespace TechnoApiApplication.Interfaces.categoria
     public interface ICategoriaService
     {
         List<CategoriaDTO> ObtenerCategorias();
+
+        Task<CategoriaDTO> ObtenerCategoriaPorCodigo(string codigoCategoria);
     }
 }

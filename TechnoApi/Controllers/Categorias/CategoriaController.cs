@@ -22,5 +22,14 @@ namespace TechnoApi.Controllers.Categorias
 
             return Ok(Categorias);
         }
+
+        [HttpGet("Categoria")]
+        public async Task<ActionResult<CategoriaDTO>> GetCategoriaPorNombre([FromQuery] string nombreCategoria)
+        {
+            var categoria = await _categoriaService.ObtenerCategoriaPorCodigo(nombreCategoria);
+
+            return Ok(categoria);
+        }
+
     }
 }

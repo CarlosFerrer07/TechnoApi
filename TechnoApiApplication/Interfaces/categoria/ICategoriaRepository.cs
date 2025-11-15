@@ -10,5 +10,7 @@ namespace TechnoApiApplication.Interfaces.categoria
     public interface ICategoriaRepository
     {
         List<Categoria> ObtenerCategorias();
+
+        Task<Categoria> ObtenerCategoriasPorCodigoDeCategoria(string codigoCategoria);
     }
 }

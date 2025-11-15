@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TechnoApiApplication.Interfaces.categoria;
 using TechnoApiDomain.Entities;
 using TechnoApiInfrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TechnoApiInfrastructure.Repositories.Categorias
 {
@@ -20,6 +21,11 @@ namespace TechnoApiInfrastructure.Repositories.Categorias
 
         public List<Categoria> ObtenerCategorias() {
             return _context.Categorias.ToList();
+        }
+
+        public async Task<Categoria> ObtenerCategoriasPorCodigoDeCategoria(string codigoCategoria)
+        {
+            return await _context.Categorias.FirstOrDefaultAsync(c => c.Codigo == codigoCategoria);
         }
 
     }
