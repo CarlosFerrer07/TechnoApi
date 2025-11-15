@@ -31,5 +31,19 @@ namespace TechnoApiApplication.Services.Categorias
             }).ToList();
 
         }
+
+        public async Task<CategoriaDTO> ObtenerCategoriaPorCodigo(string codigoCategoria) { 
+            var categoria = await _categoriaRepository.ObtenerCategoriasPorCodigoDeCategoria(codigoCategoria) ?? throw new KeyNotFoundException($"No se encontró la categoría con código {codigoCategoria}.");
+            var CategoriaDTO = new CategoriaDTO
+            {
+
+                Id = categoria.Id,
+                Codigo = categoria.Codigo,
+                Nombre = categoria.Nombre,
+                Descripcion= categoria.Descripcion,
+            };
+
+            return CategoriaDTO;
+        }
     }
 }
